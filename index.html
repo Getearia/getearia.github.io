@@ -74,15 +74,7 @@
           background: linear-gradient(90deg, var(--rosa), var(--pessego)); color: #1B122E; margin-bottom: 7px; }
   .novo b { display: block; font-weight: 800; font-size: 16px; line-height: 1.3; }
 
-  /* shorts */
-  .shorts { display: flex; gap: 10px; overflow-x: auto; padding: 0 16px 6px; scroll-snap-type: x mandatory; scrollbar-width: none; }
-  .shorts::-webkit-scrollbar { display: none; }
-  .short { flex: none; width: 132px; scroll-snap-align: start; }
-  .short .capa { position: relative; aspect-ratio: 9 / 16; border-radius: 12px; background: #000 center / auto 100% no-repeat; border: 2px solid rgba(255,122,208,.55); }
-  .short .capa::after { content: "SHORT"; position: absolute; left: 6px; top: 6px; font-size: 9px; font-weight: 900; letter-spacing: .8px; padding: 3px 6px; border-radius: 5px; background: rgba(18,12,32,.8); color: var(--pessego); }
-  .short b { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-top: 7px; font-size: 12px; line-height: 1.3; font-weight: 700; }
-
-  /* vídeos longos */
+  /* vídeos longos (os Shorts ficam de fora: o dono quer só os longos aqui, 23/11) */
   .lista { display: grid; gap: 10px; padding: 0 16px; }
   .item { display: flex; gap: 12px; align-items: center; padding: 8px; border-radius: 14px; background: var(--cartao); }
   .item .capa { width: 138px; flex: none; aspect-ratio: 16 / 9; border-radius: 9px; background: #000 center / cover no-repeat; }
@@ -128,11 +120,6 @@
   <section id="sec-novo" class="escondido">
     <h2>Vídeo novo</h2>
     <a class="novo" id="novo" href="#"><div class="capa"><span class="play"></span></div><div class="info"><span class="selo">No YouTube</span><b></b></div></a>
-  </section>
-
-  <section id="sec-shorts" class="escondido">
-    <h2>Shorts recentes</h2>
-    <div class="shorts" id="shorts"></div>
   </section>
 
   <section id="sec-videos" class="escondido">
@@ -188,7 +175,6 @@
   json('videos.json').then(function (d) {
     var vs = (d && d.videos) || [];
     var longos = vs.filter(function (v) { return v.tipo === 'video'; });
-    var shorts = vs.filter(function (v) { return v.tipo === 'short'; });
     if (longos.length) {
       var n = longos[0], a = document.getElementById('novo');
       a.href = linkApp(n);
@@ -196,18 +182,9 @@
       a.querySelector('b').textContent = limpo(n.titulo);
       document.getElementById('sec-novo').classList.remove('escondido');
     }
-    if (shorts.length) {
-      var cs = document.getElementById('shorts');
-      shorts.slice(0, 8).forEach(function (v) {
-        var c = el('div', 'capa'); c.style.backgroundImage = capa(v.id);
-        var a = el('a', 'short', [c, el('b', '', [limpo(v.titulo)])]); a.href = linkApp(v);
-        cs.appendChild(a);
-      });
-      document.getElementById('sec-shorts').classList.remove('escondido');
-    }
     if (longos.length > 1) {
       var cl = document.getElementById('videos');
-      longos.slice(1, 6).forEach(function (v) {
+      longos.slice(1, 9).forEach(function (v) {
         var c = el('span', 'capa'); c.style.backgroundImage = capa(v.id);
         var a = el('a', 'item', [c, el('b', '', [limpo(v.titulo)])]); a.href = linkApp(v);
         cl.appendChild(a);

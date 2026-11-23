@@ -41,6 +41,12 @@ def main():
             antigo = json.load(open(SAIDA, encoding='utf-8')).get('videos')
         except ValueError:
             pass
+    # O feed só traz os 15 envios mais recentes; com vários Shorts por dia, os longos sairiam da lista em poucos dias.
+    # Por isso os longos que já estavam no videos.json ficam (até 20), mesmo depois de saírem do feed.
+    ids = {v['id'] for v in videos}
+    guardados = [v for v in (antigo or []) if v.get('tipo') == 'video' and v.get('id') not in ids]
+    longos = sorted([v for v in videos if v['tipo'] == 'video'] + guardados, key=lambda v: v.get('publicado', ''), reverse=True)[:20]
+    videos = sorted([v for v in videos if v['tipo'] == 'short'] + longos, key=lambda v: v.get('publicado', ''), reverse=True)
     if antigo == videos:
         print('sem vídeo novo')
         return
