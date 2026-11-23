@@ -1,0 +1,58 @@
+name: Publicar a página da bio
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pegar os vídeos novos do canal
+        run: python3 atualizar.py
+
+      - name: Guardar os vídeos no repositório
+        id: guardar
+        run: |
+          if git diff --quiet -- videos.json; then
+            echo "mudou=false" >> "$GITHUB_OUTPUT"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add videos.json
+            git commit -m "Vídeos novos do canal"
+            git push
+            echo "mudou=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Preparar o Pages
+        if: github.event_name != 'schedule' || steps.guardar.outputs.mudou == 'true'
+        uses: actions/configure-pages@v5
+
+      - name: Empacotar a página
+        if: github.event_name != 'schedule' || steps.guardar.outputs.mudou == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Publicar
+        id: deploy
+        if: github.event_name != 'schedule' || steps.guardar.outputs.mudou == 'true'
+        uses: actions/deploy-pages@v4

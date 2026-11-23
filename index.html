@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Azor - Getearia</title>
+<meta name="description" content="GTA 6 em português: segredos, carros raros e dicas testadas no jogo. Vídeos no YouTube e no TikTok.">
+<meta property="og:title" content="Azor - Getearia">
+<meta property="og:description" content="GTA 6 em português: segredos, carros raros e dicas testadas no jogo.">
+<meta property="og:image" content="https://duugagno.github.io/getearia/img/avatar-512.jpg">
+<meta name="theme-color" content="#120c20">
+<link rel="icon" href="img/avatar.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fundo: #120c20; --cartao: #1B122E; --cartao2: #241838; --rosa: #FF5BC8; --pessego: #FFB67A; --borda: #FF7AD0;
+    --texto: #f6f0fd; --apagado: #b9a8d4; --verde: #19C7B8;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--fundo); color: var(--texto); font-family: "Montserrat", Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+  body { min-height: 100vh; }
+  a { color: inherit; text-decoration: none; }
+  .pagina { max-width: 480px; margin: 0 auto; padding-bottom: 28px; }
+
+  /* topo */
+  .topo { position: relative; height: 190px; background: #2a1440 url("img/fundo.jpg") center 40% / cover no-repeat; }
+  .topo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18,12,32,0) 35%, var(--fundo) 100%); }
+  .perfil { position: relative; margin-top: -78px; text-align: center; padding: 0 16px; z-index: 1; }
+  .avatar { width: 116px; height: 116px; border-radius: 50%; display: block; margin: 0 auto 10px; border: 4px solid var(--fundo);
+            box-shadow: 0 0 0 3px var(--borda), 0 0 28px rgba(255, 91, 200, .55); background: var(--cartao); object-fit: cover; }
+  h1 { margin: 0; font-weight: 900; font-size: 27px; letter-spacing: .5px; text-transform: uppercase;
+       background: linear-gradient(90deg, var(--rosa), var(--pessego)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .arroba { margin: 2px 0 8px; color: var(--apagado); font-weight: 600; font-size: 14px; }
+  .frase { margin: 0 auto; max-width: 340px; font-size: 14px; line-height: 1.45; color: var(--texto); font-weight: 600; }
+
+  /* botões das redes */
+  .redes { display: grid; gap: 12px; padding: 22px 16px 6px; }
+  .rede { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; background: var(--cartao);
+          border: 2px solid var(--borda); box-shadow: 0 0 22px rgba(255, 91, 200, .18); transition: transform .12s ease; }
+  .rede:active { transform: scale(.98); }
+  .rede .icone { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; flex: none; }
+  .rede .icone svg { width: 26px; height: 26px; }
+  .rede.yt .icone { background: #ff0033; }
+  .rede.tt .icone { background: #000; box-shadow: inset 0 0 0 1px #333; }
+  .rede b { display: block; font-weight: 900; font-size: 17px; text-transform: uppercase; letter-spacing: .3px; }
+  .rede span { display: block; font-size: 12.5px; color: var(--apagado); font-weight: 600; margin-top: 2px; }
+  .rede .seta { margin-left: auto; font-weight: 900; font-size: 20px; color: var(--borda); }
+
+  /* seções */
+  h2 { margin: 26px 16px 12px; font-size: 13px; font-weight: 900; letter-spacing: 1.6px; text-transform: uppercase; color: var(--pessego);
+       display: flex; align-items: center; gap: 10px; }
+  h2::after { content: ""; flex: 1; height: 2px; background: linear-gradient(90deg, rgba(255,122,208,.6), rgba(255,122,208,0)); }
+  .escondido { display: none !important; }
+
+  /* destaques fixados */
+  .destaques { display: grid; gap: 10px; padding: 0 16px; }
+  .destaque { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 14px; background: linear-gradient(90deg, var(--rosa), var(--pessego)); color: #1B122E; }
+  .destaque .mini { width: 92px; aspect-ratio: 16 / 9; border-radius: 9px; flex: none; background: #000 center / cover no-repeat; }
+  .destaque .mini.vazia { display: none; }
+  .destaque b { font-weight: 900; font-size: 14.5px; line-height: 1.25; }
+  .destaque small { display: block; font-weight: 800; font-size: 11px; letter-spacing: .8px; text-transform: uppercase; opacity: .75; margin-bottom: 2px; }
+
+  /* vídeo novo */
+  .novo { display: block; margin: 0 16px; border-radius: 16px; overflow: hidden; background: var(--cartao); border: 2px solid var(--borda); }
+  .novo .capa { position: relative; aspect-ratio: 16 / 9; background: #000 center / cover no-repeat; }
+  .play { position: absolute; left: 50%; top: 50%; width: 62px; height: 62px; margin: -31px 0 0 -31px; border-radius: 50%;
+          background: rgba(18, 12, 32, .72); border: 2px solid #fff; display: grid; place-items: center; }
+  .play::before { content: ""; margin-left: 5px; border-style: solid; border-width: 11px 0 11px 18px; border-color: transparent transparent transparent #fff; }
+  .novo .info { padding: 12px 14px 14px; }
+  .selo { display: inline-block; font-size: 10.5px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; padding: 4px 8px; border-radius: 6px;
+          background: linear-gradient(90deg, var(--rosa), var(--pessego)); color: #1B122E; margin-bottom: 7px; }
+  .novo b { display: block; font-weight: 800; font-size: 16px; line-height: 1.3; }
+
+  /* shorts */
+  .shorts { display: flex; gap: 10px; overflow-x: auto; padding: 0 16px 6px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .shorts::-webkit-scrollbar { display: none; }
+  .short { flex: none; width: 132px; scroll-snap-align: start; }
+  .short .capa { position: relative; aspect-ratio: 9 / 16; border-radius: 12px; background: #000 center / auto 100% no-repeat; border: 2px solid rgba(255,122,208,.55); }
+  .short .capa::after { content: "SHORT"; position: absolute; left: 6px; top: 6px; font-size: 9px; font-weight: 900; letter-spacing: .8px; padding: 3px 6px; border-radius: 5px; background: rgba(18,12,32,.8); color: var(--pessego); }
+  .short b { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-top: 7px; font-size: 12px; line-height: 1.3; font-weight: 700; }
+
+  /* vídeos longos */
+  .lista { display: grid; gap: 10px; padding: 0 16px; }
+  .item { display: flex; gap: 12px; align-items: center; padding: 8px; border-radius: 14px; background: var(--cartao); }
+  .item .capa { width: 138px; flex: none; aspect-ratio: 16 / 9; border-radius: 9px; background: #000 center / cover no-repeat; }
+  .item b { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-size: 13.5px; line-height: 1.3; font-weight: 700; }
+
+  .rodape { margin: 30px 16px 0; text-align: center; font-size: 12px; color: var(--apagado); font-weight: 600; }
+  .rodape a { color: var(--pessego); }
+</style>
+</head>
+<body>
+<div class="pagina">
+  <div class="topo" role="img" aria-label="Pôr do sol na praia"></div>
+  <div class="perfil">
+    <img class="avatar" src="img/avatar.jpg" alt="Azor, o vampiro de óculos" width="116" height="116">
+    <h1>Azor - Getearia</h1>
+    <p class="arroba">@getearia</p>
+    <p class="frase">GTA 6 em português: segredos, carros raros e dicas testadas no jogo, por um vampiro de férias em Leonida.</p>
+  </div>
+
+  <nav class="redes">
+    <a class="rede yt" id="link-yt" href="https://duugagno.github.io/yt/?c=@getearia">
+      <span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M9.5 7.6v8.8l7.3-4.4z"/></svg></span>
+      <span><b>YouTube</b><span>Vídeos completos e Shorts</span></span>
+      <span class="seta">›</span>
+    </a>
+    <a class="rede tt" id="link-tt" href="https://www.tiktok.com/@getearia">
+      <span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#25F4EE" d="M15.9 3.2c.4 2.2 1.8 3.6 4 3.8v2.8c-1.4 0-2.8-.4-4-1.2v6.1c0 3.2-2.5 5.6-5.6 5.6S4.7 17.9 4.7 14.8s2.6-5.6 5.8-5.5v2.9c-1.5-.2-2.9 1-2.9 2.6 0 1.5 1.2 2.7 2.7 2.7s2.7-1.2 2.7-2.8V3.2z" transform="translate(-.8 -.4)"/><path fill="#FE2C55" d="M15.9 3.2c.4 2.2 1.8 3.6 4 3.8v2.8c-1.4 0-2.8-.4-4-1.2v6.1c0 3.2-2.5 5.6-5.6 5.6S4.7 17.9 4.7 14.8s2.6-5.6 5.8-5.5v2.9c-1.5-.2-2.9 1-2.9 2.6 0 1.5 1.2 2.7 2.7 2.7s2.7-1.2 2.7-2.8V3.2z" transform="translate(.8 .4)"/><path fill="#fff" d="M15.9 3.2c.4 2.2 1.8 3.6 4 3.8v2.8c-1.4 0-2.8-.4-4-1.2v6.1c0 3.2-2.5 5.6-5.6 5.6S4.7 17.9 4.7 14.8s2.6-5.6 5.8-5.5v2.9c-1.5-.2-2.9 1-2.9 2.6 0 1.5 1.2 2.7 2.7 2.7s2.7-1.2 2.7-2.8V3.2z"/></svg></span>
+      <span><b>TikTok</b><span>Os Shorts do dia</span></span>
+      <span class="seta">›</span>
+    </a>
+  </nav>
+
+  <section id="sec-destaques" class="escondido">
+    <h2>Em destaque</h2>
+    <div class="destaques" id="destaques"></div>
+  </section>
+
+  <section id="sec-novo" class="escondido">
+    <h2>Vídeo novo</h2>
+    <a class="novo" id="novo" href="#"><div class="capa"><span class="play"></span></div><div class="info"><span class="selo">No YouTube</span><b></b></div></a>
+  </section>
+
+  <section id="sec-shorts" class="escondido">
+    <h2>Shorts recentes</h2>
+    <div class="shorts" id="shorts"></div>
+  </section>
+
+  <section id="sec-videos" class="escondido">
+    <h2>Mais vídeos</h2>
+    <div class="lista" id="videos"></div>
+  </section>
+
+  <p class="rodape"><a href="https://www.instagram.com/getearia">Instagram @getearia</a></p>
+</div>
+
+<script>
+// Os vídeos vêm do videos.json (o GitHub atualiza sozinho a partir do feed do canal) e os destaques do links.json
+// (fixados à mão com o adicionar.py). Os links do YouTube passam pela página duugagno.github.io/yt, que abre o app.
+(function () {
+  var android = /Android/i.test(navigator.userAgent);
+  var APP = 'https://duugagno.github.io/yt/';
+  var TT = 'https://www.tiktok.com/@getearia';
+  if (android) {
+    document.getElementById('link-tt').href = 'intent://www.tiktok.com/@getearia#Intent;scheme=https;package=com.zhiliaoapp.musically;S.browser_fallback_url=' +
+      encodeURIComponent(TT) + ';end';
+  }
+
+  function el(tag, cls, filhos) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    (filhos || []).forEach(function (f) { e.appendChild(typeof f === 'string' ? document.createTextNode(f) : f); });
+    return e;
+  }
+  function capa(id) { return 'url("https://i.ytimg.com/vi/' + id + '/hqdefault.jpg")'; }
+  function linkApp(v) { return APP + (v.tipo === 'short' ? '?s=' : '?v=') + v.id; }
+  function limpo(t) { return String(t || '').replace(/^GTA 6:\s*/i, ''); }
+  function json(nome) {
+    return fetch(nome + '?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+  }
+
+  json('links.json').then(function (d) {
+    var lista = (d && d.destaques) || [];
+    if (!lista.length) return;
+    var caixa = document.getElementById('destaques');
+    lista.forEach(function (x) {
+      var mini = el('span', 'mini' + (x.imagem ? '' : ' vazia'));
+      if (x.imagem) mini.style.backgroundImage = 'url("' + x.imagem + '")';
+      var texto = el('span', '', [el('small', '', [x.etiqueta || 'Assista']), el('b', '', [x.titulo || x.url])]);
+      var a = el('a', 'destaque', [mini, texto]);
+      a.href = x.url;
+      caixa.appendChild(a);
+    });
+    document.getElementById('sec-destaques').classList.remove('escondido');
+  });
+
+  json('videos.json').then(function (d) {
+    var vs = (d && d.videos) || [];
+    var longos = vs.filter(function (v) { return v.tipo === 'video'; });
+    var shorts = vs.filter(function (v) { return v.tipo === 'short'; });
+    if (longos.length) {
+      var n = longos[0], a = document.getElementById('novo');
+      a.href = linkApp(n);
+      a.querySelector('.capa').style.backgroundImage = capa(n.id);
+      a.querySelector('b').textContent = limpo(n.titulo);
+      document.getElementById('sec-novo').classList.remove('escondido');
+    }
+    if (shorts.length) {
+      var cs = document.getElementById('shorts');
+      shorts.slice(0, 8).forEach(function (v) {
+        var c = el('div', 'capa'); c.style.backgroundImage = capa(v.id);
+        var a = el('a', 'short', [c, el('b', '', [limpo(v.titulo)])]); a.href = linkApp(v);
+        cs.appendChild(a);
+      });
+      document.getElementById('sec-shorts').classList.remove('escondido');
+    }
+    if (longos.length > 1) {
+      var cl = document.getElementById('videos');
+      longos.slice(1, 6).forEach(function (v) {
+        var c = el('span', 'capa'); c.style.backgroundImage = capa(v.id);
+        var a = el('a', 'item', [c, el('b', '', [limpo(v.titulo)])]); a.href = linkApp(v);
+        cl.appendChild(a);
+      });
+      document.getElementById('sec-videos').classList.remove('escondido');
+    }
+  });
+})();
+</script>
+</body>
+</html>
