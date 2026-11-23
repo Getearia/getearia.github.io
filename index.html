@@ -44,6 +44,7 @@
   .rede .icone svg { width: 26px; height: 26px; }
   .rede.yt .icone { background: #ff0033; }
   .rede.tt .icone { background: #000; box-shadow: inset 0 0 0 1px #333; }
+  .rede.ig .icone { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
   .rede b { display: block; font-weight: 900; font-size: 17px; text-transform: uppercase; letter-spacing: .3px; }
   .rede span { display: block; font-size: 12.5px; color: var(--apagado); font-weight: 600; margin-top: 2px; }
   .rede .seta { margin-left: auto; font-weight: 900; font-size: 20px; color: var(--borda); }
@@ -112,6 +113,11 @@
       <span><b>TikTok</b><span>Os Shorts do dia</span></span>
       <span class="seta">›</span>
     </a>
+    <a class="rede ig" id="link-ig" href="https://www.instagram.com/getearia">
+      <span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="#fff" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#fff" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.2" fill="#fff"/></svg></span>
+      <span><b>Instagram</b><span>Reels, posts e stories</span></span>
+      <span class="seta">›</span>
+    </a>
   </nav>
 
   <section id="sec-destaques" class="escondido">
@@ -134,7 +140,7 @@
     <div class="lista" id="videos"></div>
   </section>
 
-  <p class="rodape"><a href="https://www.instagram.com/getearia">Instagram @getearia</a></p>
+  <p class="rodape">@getearia no YouTube, no TikTok e no Instagram</p>
 </div>
 
 <script>
@@ -147,6 +153,8 @@
   if (android) {
     document.getElementById('link-tt').href = 'intent://www.tiktok.com/@getearia#Intent;scheme=https;package=com.zhiliaoapp.musically;S.browser_fallback_url=' +
       encodeURIComponent(TT) + ';end';
+    document.getElementById('link-ig').href = 'intent://instagram.com/_u/getearia#Intent;scheme=https;package=com.instagram.android;S.browser_fallback_url=' +
+      encodeURIComponent('https://www.instagram.com/getearia') + ';end';
   }
 
   function el(tag, cls, filhos) {
