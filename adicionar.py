@@ -41,11 +41,19 @@ def youtube(link):
     vid = m.group(1)
     short = '/shorts/' in link
     titulo = ''
+    # 1º: o feed do canal (videos.json), que já diz se é Short; 2º: o oEmbed do YouTube
     try:
-        titulo = get_json('https://www.youtube.com/oembed?format=json&url=' +
-                          urllib.parse.quote('https://www.youtube.com/watch?v=' + vid))['title']
-    except Exception as e:
-        print('aviso: o YouTube não deu o título (vídeo privado, agendado ou processando?):', e)
+        for v in json.load(open(os.path.join(AQUI, 'videos.json'), encoding='utf-8'))['videos']:
+            if v['id'] == vid:
+                titulo, short = v['titulo'], v['tipo'] == 'short'
+    except (OSError, ValueError, KeyError):
+        pass
+    if not titulo:
+        try:
+            titulo = get_json('https://www.youtube.com/oembed?format=json&url=' +
+                              urllib.parse.quote('https://www.youtube.com/watch?v=' + vid))['title']
+        except Exception as e:
+            print('aviso: o YouTube não deu o título (vídeo privado, agendado ou processando?):', e)
     return {'titulo': titulo, 'url': APP + ('?s=' if short else '?v=') + vid,
             'imagem': f'https://i.ytimg.com/vi/{vid}/hqdefault.jpg', 'etiqueta': 'Short' if short else 'Vídeo'}
 
