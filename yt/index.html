@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Abrindo no YouTube…</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --fundo: #120c20; --cartao: #1B122E; --rosa: #FF5BC8; --pessego: #FFB67A; --borda: #FF7AD0; --texto: #f4eefc; --apagado: #b9a8d4; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--fundo); color: var(--texto); font-family: "Montserrat", Arial, sans-serif; }
+  main { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px 16px; }
+  .cartao { width: 100%; max-width: 420px; background: var(--cartao); border: 2px solid var(--borda); border-radius: 18px; padding: 20px;
+            box-shadow: 0 0 32px rgba(255, 91, 200, .25); text-align: center; }
+  .capa { width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; background: #000 center / cover no-repeat; margin-bottom: 16px; display: none; }
+  h1 { margin: 0 0 6px; font-weight: 900; font-size: 22px; text-transform: uppercase; letter-spacing: .5px;
+       background: linear-gradient(90deg, var(--rosa), var(--pessego)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  p { margin: 0 0 18px; color: var(--apagado); font-size: 14px; line-height: 1.4; }
+  a.botao { display: block; padding: 14px 16px; border-radius: 12px; font-weight: 900; font-size: 16px; text-decoration: none; text-transform: uppercase; }
+  a.app { background: linear-gradient(90deg, var(--rosa), var(--pessego)); color: #1B122E; margin-bottom: 10px; }
+  a.web { border: 1px solid var(--borda); color: var(--texto); font-size: 13px; font-weight: 700; }
+  .erro { color: var(--pessego); }
+</style>
+</head>
+<body>
+<main>
+  <div class="cartao">
+    <div class="capa" id="capa"></div>
+    <h1 id="titulo">Abrindo no YouTube…</h1>
+    <p id="texto">Se o app do YouTube não abrir sozinho, toque no botão.</p>
+    <a class="botao app" id="botao-app" href="https://www.youtube.com/@getearia">Abrir no app do YouTube</a>
+    <a class="botao web" id="botao-web" href="https://www.youtube.com/@getearia">Abrir no navegador</a>
+  </div>
+</main>
+<script>
+// Abre um vídeo, um Short ou o canal no APP do YouTube, mesmo quando o link é tocado dentro do Instagram
+// (o link do story abre no navegador do próprio Instagram, que não passa o youtube.com para o app).
+//   ?v=ID          vídeo        ?s=ID   Short        ?c=@canal   canal (sem nada: o @getearia)
+// Android: intent:// com o pacote do YouTube (e o site como reserva). iPhone: youtube:// e, se o app não abrir, o site.
+function destinos(busca, ua) {
+  var q = new URLSearchParams(busca);
+  var id = /^[A-Za-z0-9_-]{6,20}$/;
+  var caminho, capa = null;
+  if (q.get('v') && id.test(q.get('v'))) { caminho = 'watch?v=' + q.get('v'); capa = q.get('v'); }
+  else if (q.get('s') && id.test(q.get('s'))) { caminho = 'shorts/' + q.get('s'); capa = q.get('s'); }
+  else if (q.get('c') && /^@?[A-Za-z0-9._-]{3,40}$/.test(q.get('c'))) { caminho = '@' + q.get('c').replace(/^@/, ''); }
+  else { caminho = '@getearia'; }
+  var web = 'https://www.youtube.com/' + caminho;
+  var app = web;
+  if (/android/i.test(ua)) {
+    app = 'intent://www.youtube.com/' + caminho + '#Intent;scheme=https;package=com.google.android.youtube;S.browser_fallback_url=' +
+          encodeURIComponent(web) + ';end';
+  } else if (/iphone|ipad|ipod/i.test(ua) || (/macintosh/i.test(ua) && /mobile/i.test(ua))) {
+    app = 'youtube://www.youtube.com/' + caminho;
+  }
+  return { web: web, app: app, capa: capa, celular: app !== web };
+}
+
+if (typeof module !== 'undefined') { module.exports = destinos; }
+else {
+  var d = destinos(location.search, navigator.userAgent);
+  document.getElementById('botao-app').href = d.app;
+  document.getElementById('botao-web').href = d.web;
+  if (d.capa) {
+    var c = document.getElementById('capa');
+    c.style.backgroundImage = 'url("https://i.ytimg.com/vi/' + d.capa + '/hqdefault.jpg")';
+    c.style.display = 'block';
+  }
+  if (!d.celular) {
+    location.replace(d.web);   // no computador vai direto pro site
+  } else {
+    // tenta o app na hora. Sem cronômetro pro site: no iPhone o "Abrir no YouTube?" deixa a página visível, e um
+    // cronômetro mandaria pro site por cima da pergunta. No Android o próprio intent já cai no site se não houver app.
+    location.href = d.app;
+  }
+}
+</script>
+</body>
+</html>

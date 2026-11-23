@@ -5,7 +5,7 @@
   python adicionar.py --remover <número|link>                             tira um destaque
   --sem-enviar                                                            só grava o links.json, sem commit/push
 
-YouTube (vídeo, Short, youtu.be): pega o título e a capa sozinho, e o link abre no app (duugagno.github.io/yt).
+YouTube (vídeo, Short, youtu.be): pega o título e a capa sozinho, e o link abre no app (getearia.github.io/yt).
 TikTok (link de vídeo): pega o título e a capa pelo oEmbed do TikTok. Outro site: passe --titulo.
 Os "Últimos vídeos" do canal não precisam disto: o GitHub atualiza sozinho a cada 30 min."""
 import json, os, re, subprocess, sys, urllib.parse, urllib.request
@@ -13,7 +13,7 @@ import json, os, re, subprocess, sys, urllib.parse, urllib.request
 sys.stdout.reconfigure(encoding='utf-8')
 AQUI = os.path.dirname(os.path.abspath(__file__))
 ARQ = os.path.join(AQUI, 'links.json')
-APP = 'https://duugagno.github.io/yt/'
+APP = 'https://getearia.github.io/yt/'
 
 
 def ler():
@@ -83,7 +83,7 @@ def enviar(msg):
         return
     git('commit', '-q', '-m', msg)
     git('push', '-q')
-    print('publicado; a página atualiza em 1 a 2 minutos: https://duugagno.github.io/getearia/')
+    print('publicado; a página atualiza em 1 a 2 minutos: https://getearia.github.io/')
 
 
 def main():
