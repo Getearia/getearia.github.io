@@ -25,32 +25,31 @@
   .pagina { max-width: 480px; margin: 0 auto; padding-bottom: 28px; }
 
   /* topo */
-  .topo { position: relative; height: 190px; background: #2a1440 url("img/fundo.jpg") center 40% / cover no-repeat; }
-  .topo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18,12,32,0) 35%, var(--fundo) 100%); }
-  .perfil { position: relative; margin-top: -78px; text-align: center; padding: 0 16px; z-index: 1; }
-  .avatar { width: 116px; height: 116px; border-radius: 50%; display: block; margin: 0 auto 10px; border: 4px solid var(--fundo);
-            box-shadow: 0 0 0 3px var(--borda), 0 0 28px rgba(255, 91, 200, .55); background: var(--cartao); object-fit: cover; }
-  h1 { margin: 0; font-weight: 900; font-size: 27px; letter-spacing: .5px; text-transform: uppercase;
+  /* topo compacto (23/11): o vídeo novo tem que aparecer na primeira tela do celular */
+  .topo { position: relative; height: 108px; background: #2a1440 url("img/fundo.jpg") center 45% / cover no-repeat; }
+  .topo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18,12,32,0) 30%, var(--fundo) 100%); }
+  .perfil { position: relative; margin-top: -50px; text-align: center; padding: 0 16px; z-index: 1; }
+  .avatar { width: 86px; height: 86px; border-radius: 50%; display: block; margin: 0 auto 8px; border: 3px solid var(--fundo);
+            box-shadow: 0 0 0 3px var(--borda), 0 0 22px rgba(255, 91, 200, .55); background: var(--cartao); object-fit: cover; }
+  h1 { margin: 0; font-weight: 900; font-size: 23px; letter-spacing: .5px; text-transform: uppercase;
        background: linear-gradient(90deg, var(--rosa), var(--pessego)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .arroba { margin: 2px 0 8px; color: var(--apagado); font-weight: 600; font-size: 14px; }
-  .frase { margin: 0 auto; max-width: 340px; font-size: 14px; line-height: 1.45; color: var(--texto); font-weight: 600; }
+  .arroba { margin: 0 0 5px; color: var(--apagado); font-weight: 600; font-size: 13px; }
+  .frase { margin: 0 auto; max-width: 330px; font-size: 13px; line-height: 1.4; color: var(--texto); font-weight: 600; }
 
-  /* botões das redes */
-  .redes { display: grid; gap: 12px; padding: 22px 16px 6px; }
-  .rede { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; background: var(--cartao);
-          border: 2px solid var(--borda); box-shadow: 0 0 22px rgba(255, 91, 200, .18); transition: transform .12s ease; }
-  .rede:active { transform: scale(.98); }
-  .rede .icone { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; flex: none; }
-  .rede .icone svg { width: 26px; height: 26px; }
+  /* botões das redes: os três lado a lado */
+  .redes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 14px 16px 2px; }
+  .rede { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 4px 9px; border-radius: 14px; background: var(--cartao);
+          border: 2px solid var(--borda); box-shadow: 0 0 18px rgba(255, 91, 200, .18); transition: transform .12s ease; text-align: center; }
+  .rede:active { transform: scale(.97); }
+  .rede .icone { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; flex: none; }
+  .rede .icone svg { width: 20px; height: 20px; }
   .rede.yt .icone { background: #ff0033; }
   .rede.tt .icone { background: #000; box-shadow: inset 0 0 0 1px #333; }
   .rede.ig .icone { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
-  .rede b { display: block; font-weight: 900; font-size: 17px; text-transform: uppercase; letter-spacing: .3px; }
-  .rede span { display: block; font-size: 12.5px; color: var(--apagado); font-weight: 600; margin-top: 2px; }
-  .rede .seta { margin-left: auto; font-weight: 900; font-size: 20px; color: var(--borda); }
+  .rede b { display: block; font-weight: 900; font-size: 12px; text-transform: uppercase; letter-spacing: .3px; }
 
   /* seções */
-  h2 { margin: 26px 16px 12px; font-size: 13px; font-weight: 900; letter-spacing: 1.6px; text-transform: uppercase; color: var(--pessego);
+  h2 { margin: 18px 16px 10px; font-size: 13px; font-weight: 900; letter-spacing: 1.6px; text-transform: uppercase; color: var(--pessego);
        display: flex; align-items: center; gap: 10px; }
   h2::after { content: ""; flex: 1; height: 2px; background: linear-gradient(90deg, rgba(255,122,208,.6), rgba(255,122,208,0)); }
   .escondido { display: none !important; }
@@ -88,27 +87,24 @@
 <div class="pagina">
   <div class="topo" role="img" aria-label="Pôr do sol na praia"></div>
   <div class="perfil">
-    <img class="avatar" src="img/avatar.jpg" alt="Azor, o vampiro de óculos" width="116" height="116">
+    <img class="avatar" src="img/avatar.jpg" alt="Azor, o vampiro de óculos" width="86" height="86">
     <h1>Azor - Getearia</h1>
     <p class="arroba">@getearia</p>
-    <p class="frase">GTA 6 em português: segredos, carros raros e dicas testadas no jogo, por um vampiro de férias em Leonida.</p>
+    <p class="frase">GTA 6 em português: segredos, carros raros e dicas testadas no jogo.</p>
   </div>
 
   <nav class="redes">
     <a class="rede yt" id="link-yt" href="https://getearia.github.io/yt/?c=@getearia">
       <span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M9.5 7.6v8.8l7.3-4.4z"/></svg></span>
-      <span><b>YouTube</b><span>Vídeos completos e Shorts</span></span>
-      <span class="seta">›</span>
+      <b>YouTube</b>
     </a>
     <a class="rede tt" id="link-tt" href="https://www.tiktok.com/@getearia">
       <span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#25F4EE" d="M15.9 3.2c.4 2.2 1.8 3.6 4 3.8v2.8c-1.4 0-2.8-.4-4-1.2v6.1c0 3.2-2.5 5.6-5.6 5.6S4.7 17.9 4.7 14.8s2.6-5.6 5.8-5.5v2.9c-1.5-.2-2.9 1-2.9 2.6 0 1.5 1.2 2.7 2.7 2.7s2.7-1.2 2.7-2.8V3.2z" transform="translate(-.8 -.4)"/><path fill="#FE2C55" d="M15.9 3.2c.4 2.2 1.8 3.6 4 3.8v2.8c-1.4 0-2.8-.4-4-1.2v6.1c0 3.2-2.5 5.6-5.6 5.6S4.7 17.9 4.7 14.8s2.6-5.6 5.8-5.5v2.9c-1.5-.2-2.9 1-2.9 2.6 0 1.5 1.2 2.7 2.7 2.7s2.7-1.2 2.7-2.8V3.2z" transform="translate(.8 .4)"/><path fill="#fff" d="M15.9 3.2c.4 2.2 1.8 3.6 4 3.8v2.8c-1.4 0-2.8-.4-4-1.2v6.1c0 3.2-2.5 5.6-5.6 5.6S4.7 17.9 4.7 14.8s2.6-5.6 5.8-5.5v2.9c-1.5-.2-2.9 1-2.9 2.6 0 1.5 1.2 2.7 2.7 2.7s2.7-1.2 2.7-2.8V3.2z"/></svg></span>
-      <span><b>TikTok</b><span>Os Shorts do dia</span></span>
-      <span class="seta">›</span>
+      <b>TikTok</b>
     </a>
     <a class="rede ig" id="link-ig" href="https://www.instagram.com/getearia">
       <span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="#fff" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#fff" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.2" fill="#fff"/></svg></span>
-      <span><b>Instagram</b><span>Reels, posts e stories</span></span>
-      <span class="seta">›</span>
+      <b>Instagram</b>
     </a>
   </nav>
 
