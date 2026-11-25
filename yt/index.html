@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Abrindo no YouTube…</title>
+<title>Abrir no YouTube</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 <style>
@@ -28,15 +28,17 @@
 <main>
   <div class="cartao">
     <div class="capa" id="capa"></div>
-    <h1 id="titulo">Abrindo no YouTube…</h1>
-    <p id="texto">Se o app do YouTube não abrir sozinho, toque no botão.</p>
-    <a class="botao app" id="botao-app" href="https://www.youtube.com/@getearia">Abrir no app do YouTube</a>
+    <h1 id="titulo">Azor - Getearia</h1>
+    <p id="texto">Toque no botão para assistir no YouTube.</p>
+    <a class="botao app" id="botao-app" href="https://www.youtube.com/@getearia">Abrir no YouTube</a>
     <a class="botao web" id="botao-web" href="https://www.youtube.com/@getearia">Abrir no navegador</a>
   </div>
 </main>
 <script>
-// Abre um vídeo, um Short ou o canal no APP do YouTube, mesmo quando o link é tocado dentro do Instagram
-// (o link do story abre no navegador do próprio Instagram, que não passa o youtube.com para o app).
+// Página do link do story: mostra o vídeo (capa) e o botão "Abrir no YouTube", que abre o vídeo, o Short ou o canal
+// no APP do YouTube, mesmo dentro do navegador do Instagram (que não passa o youtube.com para o app).
+// 25/11/2026: NÃO redireciona sozinha. A regra de spam da Meta proíbe "redirecionamento automático para um domínio
+// substancialmente diferente", e a @getearia foi suspensa para análise nesse dia; agora quem abre é o toque no botão.
 //   ?v=ID          vídeo        ?s=ID   Short        ?c=@canal   canal (sem nada: o @getearia)
 // Android: intent:// com o pacote do YouTube (e o site como reserva). iPhone: youtube:// e, se o app não abrir, o site.
 function destinos(busca, ua) {
@@ -68,13 +70,8 @@ else {
     c.style.backgroundImage = 'url("https://i.ytimg.com/vi/' + d.capa + '/hqdefault.jpg")';
     c.style.display = 'block';
   }
-  if (!d.celular) {
-    location.replace(d.web);   // no computador vai direto pro site
-  } else {
-    // tenta o app na hora. Sem cronômetro pro site: no iPhone o "Abrir no YouTube?" deixa a página visível, e um
-    // cronômetro mandaria pro site por cima da pergunta. No Android o próprio intent já cai no site se não houver app.
-    location.href = d.app;
-  }
+  // Nada de location.href / location.replace aqui: a página só muda quando a pessoa toca num botão.
+  if (!d.celular) document.getElementById('botao-web').style.display = 'none'; // no computador os dois botões dão no site
 }
 </script>
 </body>

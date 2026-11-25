@@ -94,7 +94,7 @@
   </div>
 
   <nav class="redes">
-    <a class="rede yt" id="link-yt" href="https://getearia.github.io/yt/?c=@getearia">
+    <a class="rede yt" id="link-yt" href="https://www.youtube.com/@getearia">
       <span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M9.5 7.6v8.8l7.3-4.4z"/></svg></span>
       <b>YouTube</b>
     </a>
@@ -128,11 +128,30 @@
 
 <script>
 // Os vídeos vêm do videos.json (o GitHub atualiza sozinho a partir do feed do canal) e os destaques do links.json
-// (fixados à mão com o adicionar.py). Os links do YouTube passam pela página getearia.github.io/yt, que abre o app.
+// (fixados à mão com o adicionar.py).
+// Links do YouTube (25/11): abrem direto no toque, sem página no meio que redireciona sozinha (regra de spam da Meta).
+//   Android: intent:// com o pacote do YouTube (abre o app; sem app, o site). Computador: youtube.com.
+//   iPhone: a página getearia.github.io/yt, que mostra o botão "Abrir no YouTube" (o youtube:// sem app não faz nada,
+//   então o iPhone precisa do botão "Abrir no navegador" de reserva que essa página tem).
 (function () {
-  var android = /Android/i.test(navigator.userAgent);
+  var ua = navigator.userAgent;
+  var android = /Android/i.test(ua);
+  var iphone = /iphone|ipad|ipod/i.test(ua) || (/macintosh/i.test(ua) && /mobile/i.test(ua));
   var APP = 'https://getearia.github.io/yt/';
   var TT = 'https://www.tiktok.com/@getearia';
+  // busca = '?v=ID' (vídeo), '?s=ID' (Short) ou '?c=@canal'
+  function youtube(busca) {
+    var q = new URLSearchParams(busca), caminho;
+    if (q.get('v')) caminho = 'watch?v=' + q.get('v');
+    else if (q.get('s')) caminho = 'shorts/' + q.get('s');
+    else caminho = '@' + (q.get('c') || 'getearia').replace(/^@/, '');
+    var web = 'https://www.youtube.com/' + caminho;
+    if (android) return 'intent://www.youtube.com/' + caminho + '#Intent;scheme=https;package=com.google.android.youtube;S.browser_fallback_url=' +
+      encodeURIComponent(web) + ';end';
+    if (iphone) return APP + busca;
+    return web;
+  }
+  document.getElementById('link-yt').href = youtube('?c=@getearia');
   if (android) {
     document.getElementById('link-tt').href = 'intent://www.tiktok.com/@getearia#Intent;scheme=https;package=com.zhiliaoapp.musically;S.browser_fallback_url=' +
       encodeURIComponent(TT) + ';end';
@@ -147,7 +166,7 @@
     return e;
   }
   function capa(id) { return 'url("https://i.ytimg.com/vi/' + id + '/hqdefault.jpg")'; }
-  function linkApp(v) { return APP + (v.tipo === 'short' ? '?s=' : '?v=') + v.id; }
+  function linkApp(v) { return youtube((v.tipo === 'short' ? '?s=' : '?v=') + v.id); }
   function limpo(t) { return String(t || '').replace(/^GTA 6:\s*/i, ''); }
   function json(nome) {
     return fetch(nome + '?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
@@ -162,7 +181,8 @@
       if (x.imagem) mini.style.backgroundImage = 'url("' + x.imagem + '")';
       var texto = el('span', '', [el('small', '', [x.etiqueta || 'Assista']), el('b', '', [x.titulo || x.url])]);
       var a = el('a', 'destaque', [mini, texto]);
-      a.href = x.url;
+      // destaque do YouTube fixado pelo adicionar.py vem como getearia.github.io/yt/?v=ID: abre direto, igual aos vídeos
+      a.href = x.url.indexOf(APP) === 0 ? youtube(x.url.slice(APP.length)) : x.url;
       caixa.appendChild(a);
     });
     document.getElementById('sec-destaques').classList.remove('escondido');
