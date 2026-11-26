@@ -65,9 +65,11 @@ else {
   var d = destinos(location.search, navigator.userAgent);
   document.getElementById('botao-app').href = d.app;
   document.getElementById('botao-web').href = d.web;
+  // Capa própria de um vídeo, quando o dono quer mostrar outra imagem em vez da capa do YouTube (arquivo em yt/capas/ID.jpg).
+  var CAPAS = { 'kYG847rBwI4': '/yt/capas/kYG847rBwI4.jpg' }; // 26/11: GTA 6 no PC, a CONSOLE × PC do story
   if (d.capa) {
     var c = document.getElementById('capa');
-    c.style.backgroundImage = 'url("https://i.ytimg.com/vi/' + d.capa + '/hqdefault.jpg")';
+    c.style.backgroundImage = 'url("' + (CAPAS[d.capa] || 'https://i.ytimg.com/vi/' + d.capa + '/hqdefault.jpg') + '")';
     c.style.display = 'block';
   }
   // Nada de location.href / location.replace aqui: a página só muda quando a pessoa toca num botão.
