@@ -165,7 +165,9 @@
     (filhos || []).forEach(function (f) { e.appendChild(typeof f === 'string' ? document.createTextNode(f) : f); });
     return e;
   }
-  function capa(id) { return 'url("https://i.ytimg.com/vi/' + id + '/hqdefault.jpg")'; }
+  // Capa própria de um vídeo (a mesma do link do story, em yt/capas/ID.jpg), quando o dono quer outra imagem em vez da do YouTube.
+  var CAPAS = { 'kYG847rBwI4': '/yt/capas/kYG847rBwI4.jpg' }; // 26/11: GTA 6 no PC, a CONSOLE × PC
+  function capa(id) { return 'url("' + (CAPAS[id] || 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg') + '")'; }
   function linkApp(v) { return youtube((v.tipo === 'short' ? '?s=' : '?v=') + v.id); }
   function limpo(t) { return String(t || '').replace(/^GTA 6:\s*/i, ''); }
   function json(nome) {
