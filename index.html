@@ -166,7 +166,8 @@
     return e;
   }
   // Capa própria de um vídeo (a mesma do link do story, em yt/capas/ID.jpg), quando o dono quer outra imagem em vez da do YouTube.
-  var CAPAS = { 'kYG847rBwI4': '/yt/capas/kYG847rBwI4.jpg' }; // 26/11: GTA 6 no PC, a CONSOLE × PC
+  var CAPAS = { 'kYG847rBwI4': '/yt/capas/kYG847rBwI4.jpg', // 26/11: GTA 6 no PC, a CONSOLE × PC
+                'frsuds9fF1g': '/yt/capas/frsuds9fF1g.jpg' }; // 28/11: $1.000.000 em 10 minutos, a van do dinheiro
   function capa(id) { return 'url("' + (CAPAS[id] || 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg') + '")'; }
   function linkApp(v) { return youtube((v.tipo === 'short' ? '?s=' : '?v=') + v.id); }
   function limpo(t) { return String(t || '').replace(/^GTA 6:\s*/i, ''); }

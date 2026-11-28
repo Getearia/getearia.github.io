@@ -66,7 +66,8 @@ else {
   document.getElementById('botao-app').href = d.app;
   document.getElementById('botao-web').href = d.web;
   // Capa própria de um vídeo, quando o dono quer mostrar outra imagem em vez da capa do YouTube (arquivo em yt/capas/ID.jpg).
-  var CAPAS = { 'kYG847rBwI4': '/yt/capas/kYG847rBwI4.jpg' }; // 26/11: GTA 6 no PC, a CONSOLE × PC do story
+  var CAPAS = { 'kYG847rBwI4': '/yt/capas/kYG847rBwI4.jpg', // 26/11: GTA 6 no PC, a CONSOLE × PC do story
+                'frsuds9fF1g': '/yt/capas/frsuds9fF1g.jpg' }; // 28/11: $1.000.000 em 10 minutos, a van do dinheiro
   if (d.capa) {
     var c = document.getElementById('capa');
     c.style.backgroundImage = 'url("' + (CAPAS[d.capa] || 'https://i.ytimg.com/vi/' + d.capa + '/hqdefault.jpg') + '")';
